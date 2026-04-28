@@ -15,6 +15,9 @@ import {
   Terminal,
   Layers,
   Cpu,
+  Zap,
+  Shield,
+  Target,
   ArrowUp,
   FileDown,
   Menu,
@@ -26,7 +29,6 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const EXPERIENCE = [
   {
@@ -920,12 +922,14 @@ export default function App() {
         </div>
       </section>
 
-      {/* Education & About */}
-      <section id="contact" className="section-padding bg-bg-card/30 border-t border-white/5 scroll-mt-20">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* Education */}
+      <section id="education" className="section-padding bg-bg-card/30 border-t border-white/5 scroll-mt-20">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="md:w-1/2"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-purple-500/10 rounded-lg">
@@ -942,24 +946,102 @@ export default function App() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          <div className="flex flex-col justify-center">
-            <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-blue-400" />
-              Ready to Innovate
+      {/* Ready to Innovate / Contact */}
+      <section id="contact" className="section-padding bg-black border-t border-white/5 scroll-mt-20 overflow-hidden">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-20">
+          <div className="md:w-1/2">
+            <h2 className="text-3xl md:text-5xl font-black mb-8 text-white tracking-tighter leading-none flex items-center gap-3">
+              <Cpu className="w-8 h-8 text-blue-500" />
+              READY TO <br />INNOVATE
             </h2>
-            <p className="text-gray-400 leading-relaxed mb-6">
+            <p className="text-gray-400 leading-relaxed mb-10 text-lg font-light max-w-xl">
               Thrives in collaborative environments and takes a proactive, ownership-driven approach 
               to delivering software that meets both user needs and business goals. Recognized 
               for rapidly adapting to evolving tech stacks.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <a href="mailto:kashif.tech.317@gmail.com" className="flex items-center gap-2 text-sm text-white hover:text-blue-400 transition-colors">
-                <Mail className="w-4 h-4 shrink-0" /> <span className="truncate">kashif.tech.317@gmail.com</span>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+              <a href="mailto:kashif.tech.317@gmail.com" className="flex items-center gap-3 p-4 glass rounded-2xl text-sm text-white hover:border-blue-500/50 transition-all group shrink-0">
+                <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                  <Mail className="w-5 h-5 text-blue-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Email Me</span>
+                  <span className="font-medium">kashif.tech.317@gmail.com</span>
+                </div>
               </a>
-              <a href="tel:+923172296768" className="flex items-center gap-2 text-sm text-white hover:text-blue-400 transition-colors">
-                <Phone className="w-4 h-4 shrink-0" /> +92 3172296768
+              <a href="tel:+923172296768" className="flex items-center gap-3 p-4 glass rounded-2xl text-sm text-white hover:border-blue-500/50 transition-all group shrink-0">
+                <div className="p-2 bg-amber-500/10 rounded-lg group-hover:bg-amber-500/20 transition-colors">
+                  <Phone className="w-5 h-5 text-amber-500" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Call Me</span>
+                  <span className="font-medium">+92 3172296768</span>
+                </div>
               </a>
+            </div>
+          </div>
+
+          <div className="md:w-1/2 flex justify-center items-center h-[400px] md:h-[500px]">
+            <div className="relative w-full h-full flex items-center justify-center scale-75 md:scale-100">
+              {/* Circular Lines */}
+              <div className="absolute w-[250px] h-[250px] md:w-[300px] md:h-[300px] border border-white/5 rounded-full" />
+              <div className="absolute w-[400px] h-[400px] md:w-[450px] md:h-[450px] border border-white/5 rounded-full" />
+              
+              {/* Rotating Center Wrapper */}
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                className="absolute w-full h-full flex items-center justify-center"
+              >
+                {[
+                  { text: "Architecting", icon: <Layers className="w-5 h-5" />, color: "text-blue-400" },
+                  { text: "Engineering", icon: <Cpu className="w-5 h-5" />, color: "text-purple-400" },
+                  { text: "Performance", icon: <Zap className="w-5 h-5" />, color: "text-amber-400" },
+                  { text: "Full Stack", icon: <Terminal className="w-5 h-5" />, color: "text-emerald-400" },
+                  { text: "Scalability", icon: <Shield className="w-5 h-5" />, color: "text-blue-500" },
+                  { text: "Precision", icon: <Target className="w-5 h-5" />, color: "text-red-400" }
+                ].map((concept, i) => {
+                  const angle = (i * 360) / 6;
+                  const radius = window.innerWidth < 768 ? 160 : 200;
+                  const x = Math.cos((angle * Math.PI) / 180) * radius;
+                  const y = Math.sin((angle * Math.PI) / 180) * radius;
+
+                  return (
+                    <motion.div
+                      key={concept.text}
+                      className="absolute flex items-center gap-3 bg-black/60 backdrop-blur-xl border border-white/10 px-5 py-3 rounded-full hover:border-white/30 transition-colors group cursor-default"
+                      initial={{ x, y }}
+                      animate={{ 
+                        rotate: -360,
+                        x, 
+                        y 
+                      }}
+                      transition={{ 
+                        rotate: { duration: 50, repeat: Infinity, ease: "linear" },
+                        x: { duration: 0 },
+                        y: { duration: 0 }
+                      }}
+                    >
+                      <div className={`${concept.color} group-hover:scale-110 transition-transform`}>
+                        {concept.icon}
+                      </div>
+                      <span className="text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
+                        {concept.text}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+
+              {/* Static Center Hub */}
+              <div className="relative z-10 w-24 h-24 md:w-32 md:h-32 bg-blue-600/10 rounded-full border border-blue-500/20 flex flex-col items-center justify-center text-center">
+                <div className="absolute inset-0 bg-blue-500/20 blur-3xl animate-pulse rounded-full" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 mb-1">Core</span>
+                <span className="text-white text-xs font-bold uppercase tracking-[0.1em]">Engine</span>
+              </div>
             </div>
           </div>
         </div>
@@ -999,7 +1081,6 @@ export default function App() {
           </motion.button>
         )}
       </AnimatePresence>
-      <SpeedInsights />
     </div>
   );
 }
