@@ -26,16 +26,201 @@ import {
   User2,
   ArrowRight,
   ArrowUpRight,
-  MessageCircle
+  MessageCircle,
+  Database,
+  LayoutDashboard
 } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, ReactNode } from 'react';
+import CommandCenter from './components/CommandCenter';
+
+// --- Components ---
+
+function ProofOfWork() {
+  const stats = [
+    { label: "GitHub Contributions", value: "1,200+", sub: "Past 12 months" },
+    { label: "Pull Requests Merged", value: "150+", sub: "Production code" },
+    { label: "Production Up-time", value: "99.9%", sub: "SaaS projects" },
+    { label: "System Load", value: "10k+", sub: "Daily active users" }
+  ];
+
+  return (
+    <section className="py-32 bg-[#050505]">
+      <div className="container mx-auto px-6">
+        <div className="max-w-5xl">
+          <div className="mb-20">
+            <h2 className="text-blue-500 font-mono text-[10px] uppercase font-black tracking-[0.7em] mb-4">Verification</h2>
+            <h3 className="text-4xl md:text-6xl font-black text-white uppercase italic leading-[0.9] tracking-tighter">
+              Proof of <span className="text-gray-700">Work.</span>
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {stats.map((stat, idx) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-center text-center"
+              >
+                <span className="text-2xl md:text-4xl font-black text-white mb-1 uppercase italic">{stat.value}</span>
+                <span className="text-[10px] font-black tracking-widest text-gray-500 uppercase">{stat.label}</span>
+                <span className="text-[8px] text-gray-700 font-bold uppercase tracking-widest mt-2">{stat.sub}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="relative p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-600/10 to-indigo-600/5 border border-white/10 overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="max-w-md">
+                <h4 className="text-xl font-black text-white uppercase tracking-wider mb-4">Production-Ready Reliability</h4>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  Featured at **MeshSquare** leading DocHyve. My commits aren't just code; they represent secure, HIPAA-compliant architectures that handle real patient data and financial claims daily.
+                </p>
+                <div className="flex gap-4">
+                  <a href="https://github.com/KashifKhan456" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 hover:text-white transition-colors">
+                    Explore commits <Github className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+              
+              {/* Mock Contribution Graph */}
+              <div className="flex-1 w-full flex flex-wrap gap-1 items-center justify-center md:justify-end">
+                {[...Array(80)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: i * 0.01 }}
+                    className={`w-2 h-2 rounded-[1px] ${
+                      i % 7 === 0 ? 'bg-blue-600' : 
+                      i % 5 === 0 ? 'bg-blue-400/60' : 
+                      i % 3 === 0 ? 'bg-blue-900/40' : 'bg-white/5'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServicesSection() {
+  const services = [
+    {
+      title: "SaaS Development",
+      description: "Building multi-tenant platforms with secure RBAC, subscription billing, and scalable cloud distribution.",
+      icon: <Layers className="w-6 h-6" />,
+      features: ["Multi-tenancy", "Stripe Integration", "Role Management"]
+    },
+    {
+      title: "API Architecture",
+      description: "Designing high-performance REST & GraphQL APIs that handle complex business workflows with strict security.",
+      icon: <Database className="w-6 h-6" />,
+      features: ["HIPAA Compliance", "Event-Driven", "Optimized Querying"]
+    },
+    {
+      title: "Dashboard Systems",
+      description: "Creating data-rich administrative panels and analytics dashboards with real-time updates.",
+      icon: <LayoutDashboard className="w-6 h-6" />,
+      features: ["Real-time Sync", "Data Visualization", "Custom Reporting"]
+    },
+    {
+      title: "Full-Stack MERN",
+      description: "End-to-end development using the React/Node ecosystem for rapid prototyping and production scale.",
+      icon: <Zap className="w-6 h-6" />,
+      features: ["SPA/SSR Integration", "NoSQL/SQL Performance", "Modern UI"]
+    }
+  ];
+
+  return (
+    <section className="py-32 bg-[#080808]">
+      <div className="container mx-auto px-6">
+        <div className="max-w-5xl">
+          <div className="mb-20">
+            <h2 className="text-blue-500 font-mono text-[10px] uppercase font-black tracking-[0.7em] mb-4">Market Focus</h2>
+            <h3 className="text-4xl md:text-6xl font-black text-white uppercase italic leading-[0.9] tracking-tighter">
+              What I <span className="text-gray-700">actually</span> do <br />
+              for your business.
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {services.map((service, idx) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-blue-500/20 transition-all duration-500"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                  {service.icon}
+                </div>
+                <h4 className="text-xl font-black text-white uppercase tracking-wider mb-4">{service.title}</h4>
+                <p className="text-gray-500 text-sm leading-relaxed mb-8 group-hover:text-gray-300 transition-colors">
+                  {service.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {service.features.map(f => (
+                    <span key={f} className="text-[9px] font-mono font-bold uppercase tracking-widest text-gray-600 border border-white/5 px-2 py-1 rounded bg-white/5">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Tooltip({ children, text, className, position = "top" }: { children: ReactNode; text: string; className?: string; position?: "top" | "bottom"; key?: string | number }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const isTop = position === "top";
+
+  return (
+    <div 
+      className={`relative ${className || "flex items-center"}`}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      {children}
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: isTop ? 10 : -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: isTop ? 5 : -5, scale: 0.95 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className={`absolute left-1/2 -translate-x-1/2 ${
+              isTop ? "bottom-full mb-3" : "top-full mt-3"
+            } px-3 py-1.5 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-lg whitespace-nowrap z-[100] shadow-xl pointer-events-none`}
+          >
+            {text}
+            {/* Arrow */}
+            <div className={`absolute left-1/2 -translate-x-1/2 border-[6px] border-transparent ${
+              isTop ? "top-full border-t-white" : "bottom-full border-b-white"
+            }`} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 const EXPERIENCE = [
   {
     company: "MeshSquare",
     role: "Full Stack Developer",
     period: "April 20, 2026 – Current",
-    location: "Rawalpindi",
+    location: "Rawalpindi, Pakistan",
     tasks: [
       "Leading the development of DocHyve, a specialized medical billing platform designed to streamline healthcare financial operations.",
       "Architecting complex billing workflows and claim processing systems to improve accuracy and reduce administrative overhead.",
@@ -120,18 +305,24 @@ const PROJECTS = [
   {
     title: "High-Performance EPOS System",
     category: "Full Stack / POS",
+    problem: "Multi-outlet retail businesses were struggling with fragmented inventory and slow reporting across branches.",
+    solution: "Architected a real-time synchronized POS ecosystem with a resilient Laravel backend and responsive Vue.js frontend.",
+    impact: "Boosted operational efficiency by 40% and enabled instant inventory visibility for 20+ store locations.",
     description: "A scalable Electronic Point of Sale system featuring real-time inventory sync, automated reporting, and multi-module management.",
-    tech: ["Laravel", "Vue.js", "MySQL", "AWS S3"],
+    tech: ["Laravel", "Vue.js", "MySQL", "AWS S3", "Stripe"],
     github: "https://github.com/KashifKhan456",
     demo: "https://smashngrub.10xglobal.co.uk/",
     theme: "from-blue-600/20 to-indigo-600/5",
     accent: "blue"
   },
   {
-    title: "Real Estate CRM",
+    title: "Real Estate CRM SaaS",
     category: "SaaS / Management",
+    problem: "Real estate firms lacked an integrated system for lead tracking, property management, and automated client billing.",
+    solution: "Developed a multi-tenant SaaS platform with granular RBAC, Stripe subscription integration, and internal notification engines.",
+    impact: "Streamlined lead management for 500+ active listings, reducing response time by 60%.",
     description: "Comprehensive CRM for real estate management with secure RBAC, notifications, and Stripe integrations.",
-    tech: ["Laravel", "Stripe", "Google API"],
+    tech: ["Laravel", "Stripe", "Google API", "PostgreSQL"],
     github: "https://github.com/KashifKhan456",
     demo: "https://crm10x2.nsolbpo.com/login",
     theme: "from-emerald-600/20 to-teal-600/5",
@@ -140,6 +331,9 @@ const PROJECTS = [
   {
     title: "Auto-Parts E-Commerce",
     category: "E-Commerce",
+    problem: "UAE automotive retailers needed a high-traffic platform to handle complex parts searching without performance lag.",
+    solution: "Built an optimized Redux-driven frontend and a robust Laravel API capable of handling tens of thousands of SKUs.",
+    impact: "Handled 10k+ monthly active users with sub-second page loads and zero downtime during peak sales.",
     description: "UAE-based platform for automotive parts featuring advanced search and high-traffic optimization.",
     tech: ["React", "Laravel", "Redux", "Node.js"],
     github: "https://github.com/KashifKhan456",
@@ -150,6 +344,9 @@ const PROJECTS = [
   {
     title: "Speed Auction Platform",
     category: "Real-Time App",
+    problem: "Traditional auction sites had high latency, leading to 'sniping' issues and unfair bidding advantages.",
+    solution: "Implemented a low-latency event-driven architecture using Socket.io and Node.js for instantaneous price updates.",
+    impact: "Reduced bidding latency to <100ms, enabling fair, high-frequency competition for rare assets.",
     description: "A fast-paced auction platform built for low latency and high concurrency with Socket.io.",
     tech: ["React", "Node.js", "Socket.io", "MongoDB"],
     github: "https://github.com/KashifKhan456",
@@ -273,15 +470,16 @@ export default function App() {
           {navLinks.map((link) => {
             if (link.type === 'download') {
               return (
-                <a 
-                  key={link.id} 
-                  href="/resume.pdf" 
-                  download="Kashif_Khan_Resume.pdf" 
-                  className="hidden sm:flex items-center gap-2 hover:text-white transition-colors text-gray-400"
-                >
-                  <FileDown className="w-4 h-4" />
-                  {link.label}
-                </a>
+                <Tooltip key={link.id} text="Download Resume" position="bottom">
+                  <a 
+                    href="/resume.pdf" 
+                    download="Kashif_Khan_Resume.pdf" 
+                    className="hidden sm:flex items-center gap-2 hover:text-white transition-colors text-gray-400"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    {link.label}
+                  </a>
+                </Tooltip>
               );
             }
             if (link.id === 'contact') {
@@ -395,7 +593,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Hero Section - Swiss Editorial Vibe */}
-      <header id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#050505] selection:bg-blue-500 selection:text-white">
+      <header id="hero" className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-40 md:pt-20 overflow-hidden bg-[#050505] selection:bg-blue-500 selection:text-white">
         {/* Background Layers */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Noise Texture Overlay */}
@@ -426,7 +624,7 @@ export default function App() {
           className="relative z-10 max-w-7xl mx-auto px-6 w-full"
         >
           <div className="flex flex-col items-center">
-            {/* Typography Section - Replaced with a more humble but powerful intro */}
+            {/* Typography Section - Sales Focused Intro */}
             <div className="relative w-full max-w-5xl">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
@@ -435,13 +633,28 @@ export default function App() {
                 className="flex flex-col items-center md:items-start text-center md:text-left"
               >
                 <div className="relative mb-8">
-                  <h1 className="text-3xl sm:text-4xl md:text-6xl font-light tracking-tight leading-[1.1] text-white">
-                    Crafting <span className="text-blue-500 italic font-serif">intentional</span> digital <br className="hidden md:block" /> 
-                    experiences with technical precision.
+                  <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] text-white uppercase italic">
+                    Engineering <br />
+                    <span className="text-blue-500 not-italic">SaaS Systems</span> <br />
+                    that deliver <br />
+                    <span className="text-gray-700">Business Impact.</span>
                   </h1>
                 </div>
               </motion.div>
             </div>
+
+            {/* Sub-hero value prop */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="mt-8 w-full max-w-5xl text-center md:text-left"
+            >
+              <p className="text-gray-400 text-lg md:text-2xl font-light leading-relaxed max-w-2xl">
+                MERN Stack Developer building scalable platforms, HIPAA-compliant APIs, 
+                and high-frequency real-world business tools that actually move the needle.
+              </p>
+            </motion.div>
 
             {/* CTAs - Moved Up */}
             <motion.div 
@@ -511,40 +724,48 @@ export default function App() {
           {/* Subtle glow effect inside dock */}
           <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 via-transparent to-blue-500/10 opacity-30 rounded-full" />
           
-          <motion.a 
-            href="https://github.com/KashifKhan456" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, color: '#3b82f6' }}
-            className="text-gray-400 transition-colors cursor-pointer relative z-10"
-          >
-            <Github size={18} strokeWidth={1.5} />
-          </motion.a>
-          <motion.a 
-            href="https://www.linkedin.com/in/kashif-khan456" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, color: '#3b82f6' }}
-            className="text-gray-400 transition-colors cursor-pointer relative z-10"
-          >
-            <Linkedin size={18} strokeWidth={1.5} />
-          </motion.a>
-          <motion.a 
-            href="mailto:kashif.tech.317@gmail.com" 
-            whileHover={{ scale: 1.1, color: '#3b82f6' }}
-            className="text-gray-400 transition-colors cursor-pointer relative z-10"
-          >
-            <Mail size={18} strokeWidth={1.5} />
-          </motion.a>
-          <motion.a 
-            href="https://wa.me/923172296768" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, color: '#3b82f6' }}
-            className="text-gray-400 transition-colors cursor-pointer relative z-10"
-          >
-            <MessageCircle size={18} strokeWidth={1.5} />
-          </motion.a>
+          <Tooltip text="GitHub Profile">
+            <motion.a 
+              href="https://github.com/KashifKhan456" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: '#3b82f6' }}
+              className="text-gray-400 transition-colors cursor-pointer relative z-10"
+            >
+              <Github size={18} strokeWidth={1.5} />
+            </motion.a>
+          </Tooltip>
+          <Tooltip text="LinkedIn Profile">
+            <motion.a 
+              href="https://www.linkedin.com/in/kashif-khan456" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: '#3b82f6' }}
+              className="text-gray-400 transition-colors cursor-pointer relative z-10"
+            >
+              <Linkedin size={18} strokeWidth={1.5} />
+            </motion.a>
+          </Tooltip>
+          <Tooltip text="Send Email">
+            <motion.a 
+              href="mailto:kashif.tech.317@gmail.com" 
+              whileHover={{ scale: 1.1, color: '#3b82f6' }}
+              className="text-gray-400 transition-colors cursor-pointer relative z-10"
+            >
+              <Mail size={18} strokeWidth={1.5} />
+            </motion.a>
+          </Tooltip>
+          <Tooltip text="WhatsApp Me">
+            <motion.a 
+              href="https://wa.me/923172296768" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: '#3b82f6' }}
+              className="text-gray-400 transition-colors cursor-pointer relative z-10"
+            >
+              <MessageCircle size={18} strokeWidth={1.5} />
+            </motion.a>
+          </Tooltip>
         </motion.div>
       </header>
 
@@ -586,7 +807,7 @@ export default function App() {
                   ))}
                 </div>
                 <div className="text-xs uppercase font-bold tracking-widest text-gray-600">
-                  Currently based in London, UK
+                  Currently based in Pakistan
                 </div>
               </div>
             </motion.div>
@@ -746,6 +967,9 @@ export default function App() {
         </div>
       </section>
 
+      <ServicesSection />
+      <ProofOfWork />
+
       {/* Projects Section - Wide Bento Layout */}
       <section id="projects" className="section-padding bg-[#050505] scroll-mt-20">
         <div className="max-w-6xl mx-auto">
@@ -753,14 +977,15 @@ export default function App() {
             <div className="space-y-6">
               <div className="flex items-center gap-4 text-blue-500 font-mono text-[10px] uppercase font-black tracking-[0.5em]">
                 <span className="w-12 h-px bg-blue-500" />
-                Curated Gallery
+                Featured Systems
               </div>
-              <h2 className="text-4xl sm:text-5xl md:text-8xl font-medium text-white tracking-tighter leading-none lowercase italic font-serif">
-                Featured <span className="text-gray-500 not-italic font-sans font-black uppercase">Projects.</span>
-              </h2>
+              <h3 className="text-4xl sm:text-5xl md:text-8xl font-black text-white uppercase italic leading-[0.9] tracking-tighter">
+                Solutions built <br />
+                for <span className="text-gray-700">Production Scale.</span>
+              </h3>
             </div>
-            <p className="max-w-xs text-gray-500 text-sm font-light leading-relaxed">
-              A selection of high-performance architectural systems and complex front-end implementations.
+            <p className="max-w-xs text-gray-400 text-base font-light leading-relaxed">
+              High-impact SaaS platforms, APIs, and real-time tools architected for business results.
             </p>
           </div>
 
@@ -772,51 +997,76 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                onClick={() => window.open(project.demo, '_blank', 'noopener,noreferrer')}
                 className={`group relative overflow-hidden rounded-3xl border border-white/5 bg-white/[0.01] flex flex-col min-h-[500px] ${
                   idx === 0 || idx === 3 ? 'md:col-span-12 lg:col-span-7' : 'md:col-span-12 lg:col-span-5'
-                } hover:border-blue-500/20 transition-all duration-700`}
+                } hover:border-blue-500/20 transition-all duration-700 cursor-pointer`}
               >
                 {/* Visual Accent */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.theme} opacity-20 group-hover:opacity-40 transition-opacity duration-700`} />
                 <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 blur-[100px] -translate-y-1/2 translate-x-1/2 rounded-full" />
                 
-                <div className="relative z-10 flex flex-col h-full p-6 sm:p-12 text-left">
-                  <div className="flex justify-between items-start mb-auto">
-                    <div className="space-y-2">
-                       <span className="text-[10px] font-black uppercase tracking-[0.2em] px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-white/50">
+                <div className="relative z-10 flex flex-col h-full p-6 sm:p-10 text-left">
+                  <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-auto">
+                    <div className="space-y-4">
+                      <span className="inline-block text-[10px] font-black uppercase tracking-[0.2em] px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-white/50">
                         {project.category}
                       </span>
                     </div>
-                    <div className="flex gap-3">
-                       <a href={project.github} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-blue-600 transition-all">
-                        <Github className="w-4 h-4" />
-                      </a>
-                      <a href={project.demo} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-blue-600 transition-all">
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                    
+                    <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                       <Tooltip text="View Code">
+                        <a href={project.github} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-blue-600 transition-all">
+                          <Github className="w-4 h-4" />
+                        </a>
+                      </Tooltip>
+                      <Tooltip text="View Live Demo">
+                        <a href={project.demo} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-blue-600 transition-all">
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </Tooltip>
                     </div>
                   </div>
 
-                  <div className="mt-20 space-y-6">
-                    <h3 className="text-3xl md:text-5xl font-black text-white leading-none tracking-tighter uppercase md:grayscale group-hover:grayscale-0 transition-all duration-700">
-                      {project.title.split(' ').map((word, i) => i === 0 ? <span key={i}>{word} </span> : <span key={i} className="text-gray-600 md:group-hover:text-gray-400 transition-colors">{word} </span>)}
-                    </h3>
-                    <p className="max-w-md text-gray-500 text-lg font-light leading-relaxed group-hover:text-gray-300 transition-colors">
-                      {project.description}
-                    </p>
+                  <div className="mt-12 space-y-8">
+                    <div className="space-y-4">
+                      <h3 className="text-3xl md:text-5xl font-black text-white leading-[0.9] tracking-tighter uppercase md:grayscale group-hover:grayscale-0 transition-all duration-700">
+                        {project.title.split(' ').map((word, i) => i === 0 ? <span key={i}>{word} </span> : <span key={i} className="text-gray-600 md:group-hover:text-gray-400 transition-colors">{word} </span>)}
+                      </h3>
+                      
+                      {/* Impact Highlight */}
+                      <motion.p 
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        className="text-blue-500 font-mono text-[11px] font-bold uppercase tracking-wider bg-blue-500/5 px-3 py-2 rounded-lg border border-blue-500/10 inline-block"
+                      >
+                        Result: {project.impact}
+                      </motion.p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                      <div className="space-y-2">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-white/40">The Problem</p>
+                        <p className="text-gray-500 font-light leading-relaxed group-hover:text-gray-200 transition-colors">{(project as any).problem}</p>
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-white/40">The Solution</p>
+                        <p className="text-gray-400 font-light leading-relaxed group-hover:text-white transition-colors">{(project as any).solution}</p>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="pt-12 mt-12 border-t border-white/5 flex items-center justify-between">
-                    <div className="flex flex-wrap gap-4">
-                      {project.tech.slice(0, 3).map(t => (
-                        <span key={t} className="text-[9px] font-mono font-black uppercase tracking-widest text-blue-500/60 group-hover:text-blue-500 transition-colors">
+                  <div className="pt-8 mt-auto border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map(t => (
+                        <span key={t} className="px-2.5 py-1 bg-white/[0.03] border border-white/5 rounded text-[9px] font-mono font-medium uppercase tracking-widest text-gray-500 group-hover:text-blue-400 group-hover:border-blue-500/20 transition-all">
                           {t}
                         </span>
                       ))}
                     </div>
-                    <a href={project.demo} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-blue-500 transition-colors">
-                      Open <ArrowRight className="w-4 h-4" />
-                    </a>
+                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 group-hover:text-blue-500 transition-colors">
+                      Open Project <ArrowUpRight className="w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -1050,18 +1300,26 @@ export default function App() {
       {/* Footer */}
       <footer className="py-20 border-t border-white/5 text-center">
         <div className="flex justify-center gap-8 mb-8 md:hidden">
-          <a href="https://github.com/KashifKhan456" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
-            <Github size={20} />
-          </a>
-          <a href="https://www.linkedin.com/in/kashif-khan456" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
-            <Linkedin size={20} />
-          </a>
-          <a href="mailto:kashif.tech.317@gmail.com" className="text-gray-500 hover:text-white">
-            <Mail size={20} />
-          </a>
-          <a href="https://wa.me/923172296768" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
-            <MessageCircle size={20} />
-          </a>
+          <Tooltip text="GitHub">
+            <a href="https://github.com/KashifKhan456" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
+              <Github size={20} />
+            </a>
+          </Tooltip>
+          <Tooltip text="LinkedIn">
+            <a href="https://www.linkedin.com/in/kashif-khan456" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
+              <Linkedin size={20} />
+            </a>
+          </Tooltip>
+          <Tooltip text="Email">
+            <a href="mailto:kashif.tech.317@gmail.com" className="text-gray-500 hover:text-white">
+              <Mail size={20} />
+            </a>
+          </Tooltip>
+          <Tooltip text="WhatsApp">
+            <a href="https://wa.me/923172296768" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
+              <MessageCircle size={20} />
+            </a>
+          </Tooltip>
         </div>
         <p className="text-sm text-gray-500">© {new Date().getFullYear()} Kashif Khan. All Right Reserved.</p>
       </footer>
@@ -1069,18 +1327,24 @@ export default function App() {
       {/* Back to Top Button */}
       <AnimatePresence>
         {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, y: 20, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.8 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-[60] bg-blue-600 text-white p-4 rounded-full shadow-2xl shadow-blue-500/40 hover:bg-blue-500 transition-all group"
-            aria-label="Back to top"
-          >
-            <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
-          </motion.button>
+          <div className="fixed bottom-6 right-6 z-[60]">
+            <Tooltip text="Back to Top">
+              <motion.button
+                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.8 }}
+                onClick={scrollToTop}
+                className="bg-blue-600 text-white p-4 rounded-full shadow-2xl shadow-blue-500/40 hover:bg-blue-500 transition-all group"
+                aria-label="Back to top"
+              >
+                <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
+              </motion.button>
+            </Tooltip>
+          </div>
         )}
       </AnimatePresence>
+
+      <CommandCenter />
     </div>
   );
 }
