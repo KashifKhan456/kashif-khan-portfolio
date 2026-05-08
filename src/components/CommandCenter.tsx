@@ -49,7 +49,7 @@ export default function CommandCenter() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-28 right-8 z-[60] bg-white text-black p-4 rounded-full shadow-2xl flex items-center justify-center group overflow-hidden"
+        className="fixed bottom-24 right-6 sm:bottom-28 sm:right-8 z-[60] bg-white text-black p-4 rounded-full shadow-2xl flex items-center justify-center group overflow-hidden"
       >
         <div className="absolute inset-0 bg-blue-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
         <MessageSquare className="w-6 h-6 relative z-10 group-hover:text-white transition-colors" />
