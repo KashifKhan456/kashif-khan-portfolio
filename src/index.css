@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   
   --color-brand: #3b82f6;
-  --color-bg-dark: #050505;
-  --color-bg-card: #0a0a0a;
+  --color-bg-dark: #0B0C0E;
+  --color-bg-card: #121417;
+  --color-text-main: #FFFFFF;
+  --color-text-dim: #94A3B8;
 }
 
 html {
@@ -16,16 +17,11 @@ html {
 }
 
 body {
-  @apply bg-bg-dark text-gray-400 font-sans antialiased;
+  @apply bg-bg-dark text-text-dim font-sans antialiased selection:bg-brand/30 selection:text-white;
 }
 
 h1, h2, h3, h4 {
-  @apply text-white;
-}
-
-.text-editorial {
-  font-family: var(--font-serif);
-  font-style: italic;
+  @apply text-text-main font-bold tracking-tight;
 }
 
 .section-padding {
