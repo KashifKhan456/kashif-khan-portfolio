@@ -51,12 +51,12 @@ export default function CommandCenter() {
         onClick={() => setIsOpen(true)}
         className="fixed bottom-24 right-6 sm:bottom-28 sm:right-8 z-[60] bg-white text-black p-4 rounded-full shadow-2xl flex items-center justify-center group overflow-hidden"
       >
-        <div className="absolute inset-0 bg-blue-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+        <div className="absolute inset-0 bg-brand translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
         <MessageSquare className="w-6 h-6 relative z-10 group-hover:text-white transition-colors" />
         <motion.div 
            animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
            transition={{ duration: 2, repeat: Infinity }}
-           className="absolute -top-1 -right-1 bg-blue-500 w-3 h-3 rounded-full border-2 border-white" 
+           className="absolute -top-1 -right-1 bg-brand w-3 h-3 rounded-full border-2 border-white"
         />
       </motion.button>
 
@@ -82,8 +82,8 @@ export default function CommandCenter() {
               <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                 <div className="flex items-center gap-4">
                   <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                      <Bot className="w-5 h-5 text-blue-500" />
+                    <div className="w-10 h-10 rounded-full bg-brand/20 border border-brand/30 flex items-center justify-center">
+                      <Bot className="w-5 h-5 text-brand" />
                     </div>
                     <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0A0A0A]" />
                   </div>
@@ -112,13 +112,13 @@ export default function CommandCenter() {
                     className={`flex items-start gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                   >
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${
-                      msg.role === 'user' ? 'bg-white/5 border-white/10' : 'bg-blue-600/10 border-blue-500/20'
+                      msg.role === 'user' ? 'bg-white/5 border-white/10' : 'bg-brand/10 border-brand/20'
                     }`}>
-                      {msg.role === 'user' ? <User className="w-4 h-4 text-gray-400" /> : <Sparkles className="w-4 h-4 text-blue-500" />}
+                      {msg.role === 'user' ? <User className="w-4 h-4 text-gray-400" /> : <Sparkles className="w-4 h-4 text-brand" />}
                     </div>
                     <div className={`p-4 rounded-2xl text-sm leading-relaxed ${
                       msg.role === 'user' 
-                        ? 'bg-blue-600 text-white rounded-tr-none' 
+                        ? 'bg-brand text-white rounded-tr-none'
                         : 'bg-white/[0.03] text-gray-300 border border-white/5 rounded-tl-none'
                     }`}>
                       {msg.parts[0].text}
@@ -127,8 +127,8 @@ export default function CommandCenter() {
                 ))}
                 {isLoading && (
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                      <Loader2 className="w-4 h-4 text-blue-500 animate-spin" />
+                    <div className="w-8 h-8 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center shrink-0">
+                      <Loader2 className="w-4 h-4 text-brand animate-spin" />
                     </div>
                     <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 rounded-tl-none flex gap-1">
                       {[0, 1, 2].map(d => (
@@ -136,7 +136,7 @@ export default function CommandCenter() {
                           key={d}
                           animate={{ opacity: [0.3, 1, 0.3] }}
                           transition={{ duration: 0.6, repeat: Infinity, delay: d * 0.2 }}
-                          className="w-1.5 h-1.5 bg-blue-500 rounded-full"
+                          className="w-1.5 h-1.5 bg-brand rounded-full"
                         />
                       ))}
                     </div>
@@ -153,12 +153,12 @@ export default function CommandCenter() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                     placeholder="Ask anything..."
-                    className="w-full bg-[#151515] border border-white/10 py-4 pl-6 pr-14 rounded-2xl text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all"
+                    className="w-full bg-[#151515] border border-white/10 py-4 pl-6 pr-14 rounded-2xl text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-brand/50 focus:ring-1 focus:ring-brand/20 transition-all"
                   />
                   <button
                     onClick={handleSend}
                     disabled={!input.trim() || isLoading}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:hover:bg-blue-600 transition-all"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-brand text-white rounded-xl hover:bg-brand/80 disabled:opacity-50 disabled:hover:bg-brand transition-all"
                   >
                     <Send className="w-4 h-4" />
                   </button>
